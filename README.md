@@ -2,7 +2,7 @@
 A project to test the Activity’s LaunchMode SingleInstance
 
 
-## LaunchMode被设置成SingleInstance的Activity
+**LaunchMode被设置成SingleInstance的Activity**
 
 1.启动的时候会在单独的task栈中
 
