@@ -2,17 +2,17 @@
 A project to test the Activity’s LaunchMode SingleInstance
 
 
-##LaunchMode被设置成SingleInstance的Activity 
+**LaunchMode被设置成SingleInstance的Activity **
 
 1.启动的时候会在单独的task栈中
 
 2.并且一旦被启动只会有这一个实例，如果这个activity没有被destory, 下次再有跳转到该activity的请求，都会调用这个activity的onNewIntent方法，而不是新建实例。
 
-##**实验**  MainActivity:stand  SingleInstanceActivity: SingleInstance
+**实验  MainActivity:stand  SingleInstanceActivity: SingleInstance **
 
 MainActivity -> SingleInstanceActivity -> MainActivity ->  SingleInstanceActivity -> MainActivity , 回退-> 回退-> 回退-> 回退
 
-###log打印结果如下：
+**log打印结果如下：**
 
 08-14 11:44:19.600 21039-21039/? I/bo/MainActivity﹕ ####onCreate task id is 29
 
@@ -62,7 +62,7 @@ MainActivity -> SingleInstanceActivity -> MainActivity ->  SingleInstanceActivit
 
 
 
-###可见，在回退的时候，先把Mainactivity所在的栈内所有实例回退完，再回退SingInstanceActivity。
+**可见，在回退的时候，先把Mainactivity所在的栈内所有实例回退完，再回退SingInstanceActivity。**
 
 08-14 11:42:32.085 21039-21039/? I/bo/MainActivity﹕ ####onCreate task id is 27
 
@@ -90,4 +90,4 @@ MainActivity -> SingleInstanceActivity -> MainActivity ->  SingleInstanceActivit
 
 08-14 11:42:56.565 21039-21039/? I/bo/MainActivity﹕ ####onDestory() task id is 27
 
-###当然，如果在SingleInstance的栈先回退，SingleInstanceActivity实例最先被销毁。
+**当然，如果在SingleInstance的栈先回退，SingleInstanceActivity实例最先被销毁。**
