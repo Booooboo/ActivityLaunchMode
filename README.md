@@ -1,6 +1,7 @@
 # ActivityLaunchMode
 A project to test the Activity’s LaunchMode SingleInstance
 
+## SingleInstance
 
 **LaunchMode被设置成SingleInstance的Activity**
 
@@ -91,3 +92,51 @@ MainActivity -> SingleInstanceActivity -> MainActivity ->  SingleInstanceActivit
 08-14 11:42:56.565 21039-21039/? I/bo/MainActivity﹕ ####onDestory() task id is 27
 
 **当然，如果在SingleInstance的栈先回退，SingleInstanceActivity实例最先被销毁。**
+
+## SingleTask
+
+1. 使用singleTask， 如果TaskAffinity相同，则在同一个栈中操作，非栈顶，清空跳转之前的所有activity，然后调用activity的onnewIntent.
+
+2. 使用singleTask， 如果TaskAffinity不相同， 在另一个栈中新建跳转实例，此后的跳转基于新的这个栈。
+
+FLAG_ACTIVITY_NEW_TASK：FLAG_ACTIVITY_NEW_TASK + FLAG_ACTIVITY_CLEAR_TOP标志位组合产生的效果总体上和SingleTask模式相同，除了不会复用FirstActivity实例之外。
+
+如果activity的taskAffinity不同或者还没创建一个与包名同名的taskAffinity,第一次使用 FLAG_ACTIVITY_NEW_TASK跳转到activity,会新建一个task栈(包名同名的taskAffinity或者新定义的taskAffinity名字的task栈),之后的跳转会基于这个栈跳转(此处不同于下面讲的singleInstance)。
+
+示例操作：MainActivity -> singletaskativity -> MainActivity -> singletaskativity -> MainActivity -> singletaskativity -> 回退 -> 回退
+
+
+08-16 10:36:05.165  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onCreate task id is 6
+
+08-16 10:36:05.180  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onResume()
+
+08-16 10:36:07.600  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onCreate task id is 7
+
+08-16 10:36:07.610  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onResume()
+
+08-16 10:36:10.625  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onCreate task id is 7
+
+08-16 10:36:10.635  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onResume()
+
+08-16 10:36:17.835  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onNewIntent
+
+08-16 10:36:17.835  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onResume()
+
+08-16 10:36:18.190  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onDestory() task id is 7
+
+08-16 10:36:22.590  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onCreate task id is 7
+
+08-16 10:36:22.600  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onResume()
+
+08-16 10:36:24.850  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onNewIntent
+
+08-16 10:36:24.850  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onResume()
+
+08-16 10:36:25.230  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onDestory() task id is 7
+
+08-16 10:45:18.670  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onResume()  // 回退
+
+08-16 10:45:19.050  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/singletaskativity﹕ ####onDestory() task id is 7
+
+08-16 10:45:23.720  12771-12771/com.fragment.app.activitylaunchmode.app I/bo/MainActivity﹕ ####onDestory() task id is 6  // 回退
+

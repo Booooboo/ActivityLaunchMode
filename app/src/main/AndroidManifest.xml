@@ -20,6 +20,11 @@
         <activity android:name=".SingleInstanceActivity"
                   android:launchMode="singleInstance">
         </activity>
+
+        <activity android:name=".SingleTaskActivity"
+                  android:launchMode="singleTask"
+                  android:taskAffinity="com.test.singletask">
+        </activity>
     </application>
 
 </manifest>
