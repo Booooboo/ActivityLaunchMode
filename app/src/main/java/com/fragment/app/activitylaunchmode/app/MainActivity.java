@@ -57,6 +57,12 @@ public class MainActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "####onPause()");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, String.format("####onDestory() task id is %s", this.getTaskId()));

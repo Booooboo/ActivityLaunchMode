@@ -44,6 +44,12 @@ public class SingleTaskActivity extends Activity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i(TAG, "####onPause()");
+    }
+
+    @Override
     protected void onNewIntent(final Intent intent) {
         super.onNewIntent(intent);
         Log.i(TAG, "####onNewIntent");
